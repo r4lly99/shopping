@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -20,6 +21,8 @@ public class Shopping {
     private Integer id;
 
     private String name;
+
+    private BigDecimal price;
 
     @CreationTimestamp
     private Date createdDate;
@@ -48,4 +51,11 @@ public class Shopping {
         this.createdDate = createdDate;
     }
 
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 }

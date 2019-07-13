@@ -2,7 +2,7 @@ package com.bts.shopping.controller;
 
 import com.bts.shopping.model.Shopping;
 import com.bts.shopping.payload.GetShoppingResponse;
-import com.bts.shopping.service.ShoppingService;
+import com.bts.shopping.service.ShoppingListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,25 +20,25 @@ import java.util.Optional;
 public class ShoppingController {
 
     @Autowired
-    private ShoppingService shoppingService;
+    private ShoppingListService shoppingListService;
 
     @GetMapping
     public ResponseEntity<List<Shopping>> findAll() {
-        return ResponseEntity.ok(shoppingService.findAll());
+        return ResponseEntity.ok(shoppingListService.findAll());
     }
 
     @PostMapping
     public ResponseEntity create(@Valid @RequestBody Shopping shopping) {
-        Shopping response =shoppingService.save(shopping);
+        Shopping response = shoppingListService.save(shopping);
         GetShoppingResponse getShoppingResponse = new GetShoppingResponse(response);
         return ResponseEntity.ok(getShoppingResponse);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<GetShoppingResponse> findById(@PathVariable Integer id) {
-        Optional<Shopping> shopping = shoppingService.findById(id);
+        Optional<Shopping> shopping = shoppingListService.findById(id);
         if (!shopping.isPresent()) {
-            ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().build();
         }
         Shopping response = shopping.get();
         GetShoppingResponse getShoppingResponse = new GetShoppingResponse(response);
@@ -47,20 +47,20 @@ public class ShoppingController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Shopping> update(@PathVariable Integer id, @Valid @RequestBody Shopping shopping) {
-        if (!shoppingService.findById(id).isPresent()) {
+        if (!shoppingListService.findById(id).isPresent()) {
             ResponseEntity.badRequest().build();
         }
 
-        return ResponseEntity.ok(shoppingService.save(shopping));
+        return ResponseEntity.ok(shoppingListService.save(shopping));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Integer id) {
-        if (!shoppingService.findById(id).isPresent()) {
+        if (!shoppingListService.findById(id).isPresent()) {
             ResponseEntity.badRequest().build();
         }
 
-        shoppingService.deleteById(id);
+        shoppingListService.deleteById(id);
 
         return ResponseEntity.ok().build();
     }

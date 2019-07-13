@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 
 @Service
-public class ShoppingService {
+public class ShoppingListService {
 
     @Autowired
     private ShoppingRepository shoppingRepository;

@@ -1,4 +1,4 @@
-## Building Rest Api with Spring Boot, Spring Security & JWT
+## Building Shopping List with Spring Boot, Spring Security & JWT
 
 ### Tutorials
 
